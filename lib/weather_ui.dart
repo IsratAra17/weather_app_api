@@ -46,16 +46,26 @@ class _Weather_UIState extends State<Weather_UI> {
 
   Position ?position;
 
-  //Map<String,dynamic>? weatherMap;
- // Map<String,dynamic>? forecastMap;
+  Map<String,dynamic>? weatherMap;
+  Map<String,dynamic>? forecastMap;
 
 
 
 
-  getWeatherData(){}
+  getWeatherData()async{
+    var weather=await http.get(Uri.parse("https://api.openweathermap.org/data/2.5/weather?lat=${position!.latitude}&lon=${position!.longitude}&appid=cc8fb4948097e9d6dd33c6ebf34ecd71&units=metric"));
+    print("weather data ${weather.body}");
+    var forecast=await http.get(Uri.parse("https://api.openweathermap.org/data/2.5/forecast?lat=${position!.latitude}&lon=${position!.longitude}&appid=cc8fb4948097e9d6dd33c6ebf34ecd71&units=metric"));
 
+    var weatherData=jsonDecode(weather.body);
+    var forecastData=jsonDecode(forecast.body);
 
+    setState(() {
+      weatherMap=Map<String,dynamic>.from(weatherData);
+      forecastMap=Map<String,dynamic>.from(forecastData);
+    });
 
+  }
 
   @override
   void initState() {
