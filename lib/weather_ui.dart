@@ -40,7 +40,7 @@ class _Weather_UIState extends State<Weather_UI> {
 
     position= await Geolocator.getCurrentPosition();
     getWeatherData();
-    print("my latitude is ${position!.latitude}  longitute is ${position!.longitude}");
+    print("This  is my latitude is ${position!.latitude}  longitute is ${position!.longitude}");
   }
 
 
