@@ -45,7 +45,7 @@ class _Weather_UIState extends State<Weather_UI> {
 
 
   Position ?position;
-
+// Server theke data anar por Map er madhome Data dekhano
   Map<String,dynamic>? weatherMap;
   Map<String,dynamic>? forecastMap;
 
@@ -53,9 +53,9 @@ class _Weather_UIState extends State<Weather_UI> {
 
 
   getWeatherData()async{
-    var weather=await http.get(Uri.parse("https://api.openweathermap.org/data/2.5/weather?lat=${position!.latitude}&lon=${position!.longitude}&appid=cc8fb4948097e9d6dd33c6ebf34ecd71&units=metric"));
-    print("weather data ${weather.body}");
-    var forecast=await http.get(Uri.parse("https://api.openweathermap.org/data/2.5/forecast?lat=${position!.latitude}&lon=${position!.longitude}&appid=cc8fb4948097e9d6dd33c6ebf34ecd71&units=metric"));
+    var weather=await http.get(Uri.parse("https://api.openweathermap.org/data/2.5/weather?lat=${position!.latitude}&lon=${position!.longitude}&appid=cc93193086a048993d938d8583ede38a&units=metric"));
+    print("Weather data: ${weather.body}");
+    var forecast=await http.get(Uri.parse("https://api.openweathermap.org/data/2.5/forecast?lat=${position!.latitude}&lon=${position!.longitude}&appid=cc93193086a048993d938d8583ede38a&units=metric"));
 
     var weatherData=jsonDecode(weather.body);
     var forecastData=jsonDecode(forecast.body);
@@ -73,6 +73,7 @@ class _Weather_UIState extends State<Weather_UI> {
     determinePosition();
     super.initState();
   }
+
 
 
 
