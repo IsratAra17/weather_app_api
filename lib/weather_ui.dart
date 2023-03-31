@@ -80,8 +80,33 @@ class _Weather_UIState extends State<Weather_UI> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: weatherMap!=null? Scaffold(
+        body: Container(
+          padding: EdgeInsets.all(25),
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
 
+              Align(
+                alignment: Alignment.centerRight,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+
+                    Text("${Jiffy("${DateTime.now()}").format('MMM do yyyy')}, ${Jiffy("${DateTime.now()}").format('hh mm')}"),
+                    Text("${weatherMap!["name"]}"),
+                  ],
+                ),
+              ),
+
+
+
+            ],
+          ),
+        ),
+      ) :Center(child: CircularProgressIndicator()),
     );
   }
 }
