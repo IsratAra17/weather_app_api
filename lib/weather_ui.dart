@@ -81,62 +81,80 @@ class _Weather_UIState extends State<Weather_UI> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+
       child: weatherMap!=null? Scaffold(
-        body: Container(
+
+        body:
+         Container(
+color: Colors.lightGreenAccent.withOpacity(0.4),
+
           padding: EdgeInsets.all(25),
           width: double.infinity,
+
           child: Column(
+
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
 
+
               Align(
-                alignment: Alignment.centerRight,
+                alignment: Alignment.topRight,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
 
-                    Text("${Jiffy("${DateTime.now()}").format('MMM do yyyy')}, ${Jiffy("${DateTime.now()}").format('hh mm')}"),
-                    Text("${weatherMap!["name"]}"),
+                    Text("${Jiffy("${DateTime.now()}").format('MMM do yyyy')}, ${Jiffy("${DateTime.now()}").format('hh:mm a')}",style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text("${weatherMap!["name"]}",style: TextStyle(fontWeight: FontWeight.bold),),
+
                   ],
                 ),
               ),
               Image.network("https://openweathermap.org/img/wn/${weatherMap!["weather"][0]["icon"]}@2x.png"),
-              Text("${weatherMap!["main"]["temp"]}°"),
+              Text("${weatherMap!["main"]["temp"]}°",style: TextStyle(fontSize: 30,color: Colors.indigo,fontWeight: FontWeight.bold),),
 
 
               Align(
                 alignment: Alignment.centerLeft,
                 child: Column(
                   children: [
-                    Text("Feels Like ${weatherMap!["main"]["feels_like"]}"),
-                    Text("${weatherMap!["weather"][0]["description"]}"),
+                    Text("Feels Like ${weatherMap!["main"]["feels_like"]}",style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                    Text("${weatherMap!["weather"][0]["description"]}",style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
                   ],
                 ),
               ),
 
-              Text("Humidity ${weatherMap!["main"]["humidity"]},Pressure ${weatherMap!["main"]["pressure"]}"),
+              Text("Humidity ${weatherMap!["main"]["humidity"]},Pressure ${weatherMap!["main"]["pressure"]}",style:TextStyle(color: Colors.orange,fontWeight: FontWeight.bold),),
 
-              Text("Sunrise ${Jiffy("${DateTime.fromMillisecondsSinceEpoch(weatherMap!["sys"]["sunrise"] * 1000)}").format("hh mm a")}, Sunset  ${Jiffy("${DateTime.fromMillisecondsSinceEpoch(weatherMap!["sys"]["sunset"] * 1000)}").format("hh mm a")}")
+              Text("Sunrise ${Jiffy("${DateTime.fromMillisecondsSinceEpoch(weatherMap!["sys"]["sunrise"] * 1000)}").format("hh mm a")}, Sunset  ${Jiffy("${DateTime.fromMillisecondsSinceEpoch(weatherMap!["sys"]["sunset"] * 1000)}").format("hh mm a")}",style:TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
 
               ,SizedBox(
                 height: 300,
+
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: forecastMap!.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context,index){
-                    return Container(
-                      width: 150,
-                      margin: EdgeInsets.only(right: 12),
-                      child: Column(
-                        children: [
-                          Text("${Jiffy("${forecastMap!["list"][index]["dt_txt"]}").format("EEE h mm")}")
+                    return Card(
+                      
 
-                          ,Image.network("https://openweathermap.org/img/wn/${forecastMap!["list"][index]["weather"][0]["icon"]}@2x.png"),
-                          Text("${forecastMap!["list"][index]["main"]["temp_min"]}"),
-                          Text("${forecastMap!["list"][index]["weather"][0]["description"]}"),
-                        ],
-                      ),
+
+elevation: 2,
+                        child:Container(
+padding: EdgeInsets.only(top:20.0),
+                        margin: EdgeInsets.only(right: 12),
+                        child: Column(
+                          children: [
+                            Text("${Jiffy("${forecastMap!["list"][index]["dt_txt"]}").format("EEE h:mm a")}",style: TextStyle(fontWeight: FontWeight.bold),)
+
+                            ,Image.network("https://openweathermap.org/img/wn/${forecastMap!["list"][index]["weather"][0]["icon"]}@2x.png"),
+                            Text("${forecastMap!["list"][index]["main"]["temp_min"]}",style: TextStyle(fontWeight: FontWeight.bold),),
+                            Text("${forecastMap!["list"][index]["weather"][0]["description"]}",style: TextStyle(color:Colors.orangeAccent,fontWeight: FontWeight.bold)),
+                          ],
+                        ),)
+
+                      //width: 150,
+
                     );
                   },
                 ),
