@@ -100,7 +100,47 @@ class _Weather_UIState extends State<Weather_UI> {
                   ],
                 ),
               ),
+              Image.network("https://openweathermap.org/img/wn/${weatherMap!["weather"][0]["icon"]}@2x.png"),
+              Text("${weatherMap!["main"]["temp"]}°"),
 
+
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  children: [
+                    Text("Feels Like ${weatherMap!["main"]["feels_like"]}"),
+                    Text("${weatherMap!["weather"][0]["description"]}"),
+                  ],
+                ),
+              ),
+
+              Text("Humidity ${weatherMap!["main"]["humidity"]},Pressure ${weatherMap!["main"]["pressure"]}"),
+
+              Text("Sunrise ${Jiffy("${DateTime.fromMillisecondsSinceEpoch(weatherMap!["sys"]["sunrise"] * 1000)}").format("hh mm a")}, Sunset  ${Jiffy("${DateTime.fromMillisecondsSinceEpoch(weatherMap!["sys"]["sunset"] * 1000)}").format("hh mm a")}")
+
+              ,SizedBox(
+                height: 300,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: forecastMap!.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context,index){
+                    return Container(
+                      width: 150,
+                      margin: EdgeInsets.only(right: 12),
+                      child: Column(
+                        children: [
+                          Text("${Jiffy("${forecastMap!["list"][index]["dt_txt"]}").format("EEE h mm")}")
+
+                          ,Image.network("https://openweathermap.org/img/wn/${forecastMap!["list"][index]["weather"][0]["icon"]}@2x.png"),
+                          Text("${forecastMap!["list"][index]["main"]["temp_min"]}"),
+                          Text("${forecastMap!["list"][index]["weather"][0]["description"]}"),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              )
 
 
             ],
